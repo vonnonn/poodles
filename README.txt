@@ -5,7 +5,8 @@ https://github.com/chambbj/pdal-notebook/blob/9195838a14f88a543bbe2a8dacf3649cad
 
 The tweeks..
 
-Parameters:
+Parameters: (these settings worked best with a Poisson filter with Radius = 1. I would also suggest setting hres to 1)
+
 	s= 20
 	k= 0
 	n= 0.1
