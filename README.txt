@@ -14,4 +14,4 @@ Parameters: (these settings were optimized with a Poisson filter at Radius = 1. 
 
 I also stacked a default PMF filter and a cell to write out the final ground points.
 
-*note - It was crucial on my tequitor for processing time to keep the point density around 1pts/m^2 (Yes, my CPU is a burrito).
+*note - It was critical for my tequitor's processing time to keep the point density around 1pts/m^2 (Yes, my CPU is a burrito).
