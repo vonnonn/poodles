@@ -144,8 +144,8 @@ def dmpdtm(lasfile):
 
     #writout las file with ground points only 
     #outputfile = lasfile.replace(".las","_dtm.las")
-    #final_out = pipeline.arrays[0]
-    #pipeline = pdal.Writer.las(filename= outputfile).pipeline(final_out)
-    #pipeline.execute()
+    #final_out = p.arrays[0]
+    #p = pdal.Writer.las(filename= outputfile).pipeline(final_out)
+    #p.execute()
 
     return ??
