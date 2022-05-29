@@ -1,4 +1,6 @@
 #created on 5/28/2022 by Josh von Nonn
+# built from source code provided by Brad Chmambers - based off Mungus et al.,2014.
+
 
 from scipy import ndimage, signal, spatial
 from scipy.ndimage import morphology
