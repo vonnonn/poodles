@@ -2,6 +2,10 @@
 # built from source code provided by Brad Chmambers - based off Mungus et al.,2014.
 
 
+# this algorithm is currently optimized for Mismibazi dataset with a 1 meter resolution. Future use with this tool
+# will allow the user to enter a categorical value for a pre-optimized algorithm contingent upon topographical complexity.
+
+
 from scipy import ndimage, signal, spatial
 from scipy.ndimage import morphology
 import numpy as np
