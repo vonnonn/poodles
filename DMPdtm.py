@@ -29,16 +29,13 @@ def idw(data):
 
 def dmpdtm(lasfile):
 
-    #readin in full res .las , subsampled with Poisson, change radius to reach desired resolution
+    #readin in full res .las , subsampled with Poisson- change radius to reach desired resolution
     p = pdal.Reader.las(lasfile).pipeline() | pdal.Filter.sample(radius=1).pipeline()
     p.execute()
 
-    #create a one dimensional array from the "Classification" column
     cls = p.arrays[0]['Classification']
-    #set the array to all ones
     cls.fill(1)
 
-    #convert X,Y, and Z data to a pandas dataframe
     df3D = pd.DataFrame(p.arrays[0], columns=['X','Y','Z'])
 
     #define variables (if we keep k = 0, then I'll clean up the code, remove gstar?)
@@ -57,20 +54,20 @@ def dmpdtm(lasfile):
     bins = df3D.groupby([np.digitize(p.arrays[0]['X'], xi), np.digitize(p.arrays[0]['Y'], yi)])
 
     zmins = bins.Z.min() #collects the lowest point in each bin
-    cz = np.empty((yi.size, xi.size)) #create empty 2d array 
-    cz.fill(np.nan) #fill 2d array with nan
+    cz = np.empty((yi.size, xi.size)) 
+    cz.fill(np.nan) 
     for name, val in zmins.iteritems():
         cz[name[1]-1, name[0]-1] = val #adding coordinates to lowest points only
 
     cz = idw(cz)
 
-    #create an initial diamond(plus shaped) 2,1 and enlarge it 11 times = 23x,23y
+    #23x,23y structuring element for opening
     struct = ndimage.iterate_structure(ndimage.generate_binary_structure(2, 1), 11).astype(int)
-    opened = morphology.grey_opening(cz, structure=struct) #dilate cz with above kernel
+    opened = morphology.grey_opening(cz, structure=struct) 
 
-    #create another plus-shaped (2,1) and enlarge it 9 times = 19x,19y
+    #19x,19y structuring element for closing
     struct = ndimage.iterate_structure(ndimage.generate_binary_structure(2, 1), 9).astype(int)
-    closed = morphology.grey_closing(opened, structure=struct) #erode opened with above kernel
+    closed = morphology.grey_closing(opened, structure=struct)
 
     #removing low outliers: if any pt in cz is >= 1 meter below the surface of closed then it is set to the 
     #closed surface value
@@ -99,6 +96,8 @@ def dmpdtm(lasfile):
         out.append(granulometry[i-1]-granulometry[i])
 
     gprime = np.maximum.reduce(out)
+    #gstar and gplus may be necessary for more alt. terrain optimization
+
     #xs, ys = out[0].shape
     #gstar = np.zeros((xs,ys))
     #gplus = np.zeros((xs,ys))
@@ -125,6 +124,7 @@ def dmpdtm(lasfile):
 
     xbins = np.digitize(df3D.X, xi)
     ybins = np.digitize(df3D.Y, yi)
+
     #nonground = np.where(df3D.Z >= gradDTM[ybins-1, xbins-1]+b)
     ground = np.where(df3D.Z < gradDTM[ybins-1, xbins-1]+b)
 
@@ -142,10 +142,12 @@ def dmpdtm(lasfile):
     p = pdal.Filter.pmf().pipeline(pmf_arr) | pdal.Filter.range(limits="Classification[2:2]").pipeline()
     p.execute()
 
+    
+
     #writout las file with ground points only 
     #outputfile = lasfile.replace(".las","_dtm.las")
     #final_out = p.arrays[0]
     #p = pdal.Writer.las(filename= outputfile).pipeline(final_out)
     #p.execute()
 
-    return ??
+    return ?? #temp las.file?
