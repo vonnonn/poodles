@@ -1,9 +1,10 @@
-#created on 5/28/2022 by Josh von Nonn
-# built from source code provided by Brad Chmambers - based off Mungus et al.,2014.
+#Created on 5/28/2022 by Josh von Nonn.
+#Built from source code provided by Brad Chmambers - based off Mungus et al.,2014. (Apache 2.0 License)
 
 
-# this algorithm is currently optimized for Mismibazi dataset with a 1 meter resolution. Future use with this tool
-# will allow the user to enter a categorical value for a pre-optimized algorithm contingent upon topographical complexity.
+#This algorithm is currently optimized for the Mismibazi dataset with a 1 meter resolution. Future use with this tool
+# is expected for user to enter a categorical value contingent upon topographical complexity. These categories will be 
+# pre-optimized.
 
 
 from scipy import ndimage, signal, spatial
@@ -13,7 +14,6 @@ import pandas as pd
 import pdal
 
 
-#need to run more tests with different size k values
 
 def idw(data):
     # Find indices of the ground returns, i.e., anything that is not a nan, and create a KD-tree.
@@ -149,7 +149,6 @@ def dmpdtm(lasfile):
     p.execute()
 
     
-
     #write out las file with ground points only 
     outputfile = lasfile.replace(".las","_dtm.las")
     final_out = p.arrays[0]
