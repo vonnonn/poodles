@@ -3,7 +3,7 @@ source code found at -
 https://github.com/chambbj/pdal-notebook/blob/9195838a14f88a543bbe2a8dacf3649cadc66eae/notebooks/DMP.ipynb
 
 
-The tweeks..
+The tweaks..
 
 Parameters: (these settings were optimized with a Poisson filter at Radius = 1. I would also suggest setting hres to 1)
 
