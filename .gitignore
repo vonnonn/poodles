@@ -1,0 +1,27 @@
+# Standard Python detritus
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+envs/
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+a.out
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Because someone will inevitably use PyCharm
+.idea/
+
+# Because I use Emacs
+*~
+
+# Because someone will use a Mac
+.DS_Store
